@@ -40,6 +40,31 @@ const userController = {
         res.status(400).json(err);
         });
     },
-};
 
+    updateUser({ params, body }, res) {
+        User.findOneAndUpdate({ _id: params.id }, body, { new: true, runValidators: true })
+        .then(user => {
+            if (!user) {
+            res.status(404).json({ message: 'Please Try Again!' });
+            return;
+        }
+        res.json(user);
+        })
+        .catch(err => res.status(400).json(err));
+    },
+
+    //delete a user
+    deleteUser({ params }, res) {
+        User.findOneAndDelete({ _id: params.id})
+        .then(user => {
+            if (!user) {
+            res.status(404).json({ message: 'Please Try Again!' });
+            return;
+        }
+        res.json(user);
+        })
+        .catch(err => res.status(400).json(err));
+    },
+
+};
 module.exports = userController;
