@@ -12,4 +12,5 @@ router
     .get(getAllUsers)
     .post(createUser);
 
+
 module.exports = router;
